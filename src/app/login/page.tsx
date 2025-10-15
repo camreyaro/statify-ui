@@ -2,9 +2,9 @@
 
 import Image from "next/image";
 
-export default function Home() {
+export default function Login() {
   function handleLogin() {
-    console.log("logging into spotify...")
+    window.location.href = "http://localhost:8000/login";
   }
 
   return (
@@ -19,7 +19,7 @@ export default function Home() {
             priority
           /> 
         </div>
-        <button onClick={handleLogin} className="px-40 py-4 bg-stone-600 flex flex-wrap gap-2 text-white rounded-xl hover:bg-stone-700">
+        <button onClick={handleLogin} className="text-xl px-40 py-4 bg-stone-600 flex flex-wrap gap-2 text-white rounded-xl hover:bg-stone-700 cursor-pointer">
           Login with Spotify <Image
           className="dark:invert"
           src="/spotify.png"
