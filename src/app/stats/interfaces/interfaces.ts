@@ -1,4 +1,5 @@
 export interface Track {
+  id: string;
   name: string;
   artist: string;
   album_image_url: string | null;
@@ -9,4 +10,9 @@ export interface Artist {
   image_url: string | null;
 }
 
-export type TopTracksByArtist = Record<string, Track[]>;
+export interface ArtistTopTracks {
+  name: string;
+  tracks: Track[];
+}
+
+export type TopTracksByArtist = Record<string, ArtistTopTracks>;
