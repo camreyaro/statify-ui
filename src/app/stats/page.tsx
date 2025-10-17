@@ -40,7 +40,7 @@ const Stats: React.FC = () => {
       </div>
 
       {/* Top Tracks By Artist */}
-      <div className="w-full max-w-6xl space-y-8">
+      <div className="w-full max-w-6xl space-y-8 mb-16">
         <TopTracksByArtist />
       </div>
     </div >

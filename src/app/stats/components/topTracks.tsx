@@ -25,7 +25,7 @@ const TopTracks: React.FC = () => {
               />
             )}
             <div className="flex flex-col">
-              <p className="font-semibold text-gray-800">{track.name}</p>
+              <p className="font-semibold text-gray-800">{index + 1}. {track.name}</p>
               <p className="text-gray-500 text-sm">{track.artist}</p>
             </div>
           </div>

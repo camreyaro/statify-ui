@@ -25,7 +25,7 @@ const TopArtists: React.FC = () => {
                   />
                 )}
                 <div>
-                  <p className="font-semibold text-gray-800">{artist.name}</p>
+                  <p className="font-semibold text-gray-800">{index + 1}. {artist.name}</p>
                 </div>
               </div>
             ))}
