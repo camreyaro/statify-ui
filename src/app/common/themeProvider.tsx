@@ -1,4 +1,4 @@
-"use client";
+'use client'
 
 import { ThemeProvider, createTheme, CssBaseline } from "@mui/material";
 import { Nunito } from "next/font/google";

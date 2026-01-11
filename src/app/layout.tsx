@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
-import { Nunito } from "next/font/google";
-import MuiThemeProvider from "./MuiThemeProvider";
+import MuiThemeProvider from "./common/themeProvider";
 
 export const metadata: Metadata = {
   title: "Statify",

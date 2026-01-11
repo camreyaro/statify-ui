@@ -11,20 +11,20 @@ export default function Stats() {
 
   if (userLoading)
     return (
-      <Box textAlign="center" mt={10}>
+      <Box textAlign="center">
         <CircularProgress />
       </Box>
     );
 
   if (userError)
     return (
-      <Box textAlign="center" mt={10}>
+      <Box textAlign="center">
         <Alert severity="error">{userError}</Alert>
       </Box>
     );
 
   return (
-    <Container maxWidth="lg" sx={{ mt: 5 }}>
+    <Container maxWidth="lg">
       {/* User Info */}
       {user && (
         <Box display="flex" flexDirection="column" alignItems="center" mb={10}>
