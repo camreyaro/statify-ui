@@ -1,4 +1,5 @@
-// hooks/useTopTracks.ts
+'use client';
+
 import { useEffect, useState } from "react";
 import { Track } from "../interfaces/interfaces";
 

@@ -1,44 +1,76 @@
 'use client'
 
 import Image from "next/image";
+import { Box, Button, Typography, Container, Link } from "@mui/material";
 
 export default function Login() {
-  function handleLogin() {
+  const handleLogin = () => {
     window.location.href = "http://127.0.0.1:8000/login";
-  }
+  };
 
   return (
-    <div className="font-sans grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20">
-      <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
-        <div className="relative w-full h-[300px]">
+    <Container
+      maxWidth="md"
+      sx={{
+        minHeight: '100vh',
+        display: 'flex',
+        flexDirection: 'column',
+        justifyContent: 'center',
+        alignItems: 'center',
+        gap: 6,
+        py: 4,
+      }}
+    >
+      <main
+        style={{ display: 'flex', flexDirection: 'column', width: '100%', maxWidth: 400, alignItems: 'center' }}
+      >
+        <Box sx={{ position: 'relative', width: '100%', height: 250, mb: 4 }}> 
+          <Image 
+          src="/logo.png" 
+          alt="Statify logo" 
+          fill 
+          priority 
+          style={{ borderRadius: '12px' }} /> 
+        </Box>
+
+        <Button
+          onClick={handleLogin}
+          variant="contained"
+          color="secondary"
+          sx={{
+            px: 8,
+            py: 1.5,
+            display: 'flex',
+            alignItems: 'center',
+            gap: 1.5,
+            backgroundColor: '#525252',
+            '&:hover': { backgroundColor: '#3f3f3f' },
+            fontSize: '1.25rem',
+            width: '100%'
+          }}
+        >
+          Login with Spotify
           <Image
-            className="dark:invert rounded-xl"
-            src="/logo.png"
-            alt="Statify logo"
-            fill
+            src="/spotify.png"
+            alt="Spotify logo"
+            width={20}
+            height={20}
             priority
-          /> 
-        </div>
-        <button onClick={handleLogin} className="text-xl px-40 py-4 bg-stone-600 flex flex-wrap gap-2 text-white rounded-xl hover:bg-stone-700 cursor-pointer">
-          Login with Spotify <Image
-          className="dark:invert"
-          src="/spotify.png"
-          alt="Statify logo"
-          width={25}
-          height={20}
-          priority
-        />
-        </button>
+          />
+        </Button>
       </main>
-      <footer className="row-start-3 flex flex-wrap gap-1 items-center justify-center">
-        Made with 💜 by <a
-          className="hover:underline hover:underline-offset-4"
+
+      <Box sx={{ display: 'flex', gap: 0.5, flexWrap: 'wrap', justifyContent: 'center', alignItems: 'center' }}>
+        <Typography>Made with 💜 by</Typography>
+        <Link
           href="https://github.com/camreyaro"
           target="_blank"
           rel="noopener noreferrer"
-        >@camreyaro
-         </a>
-      </footer>
-    </div>
+          sx={{ textDecoration: 'none', '&:hover': { textDecoration: 'underline' } }}
+        >
+          @camreyaro
+        </Link>
+      </Box>
+    </Container>
   );
 }

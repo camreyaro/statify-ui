@@ -1,4 +1,5 @@
-// hooks/useUser.ts
+'use client';
+
 import { useState, useEffect } from "react";
 
 export interface UserData {

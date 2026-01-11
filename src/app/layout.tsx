@@ -1,11 +1,6 @@
 import type { Metadata } from "next";
 import { Nunito } from "next/font/google";
-import "./globals.css";
-
-const nunito = Nunito({
-  subsets: ['latin'],
-  weight: ['400', '700'],
-});
+import MuiThemeProvider from "./MuiThemeProvider";
 
 export const metadata: Metadata = {
   title: "Statify",
@@ -14,15 +9,13 @@ export const metadata: Metadata = {
 
 export default function RootLayout({
   children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
+}: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="en">
-      <body
-        className={`${nunito.className} antialiased`}
-      >
-        {children}
+      <body>
+        <MuiThemeProvider>
+          {children}
+        </MuiThemeProvider>
       </body>
     </html>
   );

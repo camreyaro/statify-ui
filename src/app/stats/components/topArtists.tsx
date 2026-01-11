@@ -1,36 +1,59 @@
 import { useTopArtists } from '../hooks/useTopArtists';
+import { Box, Grid, Card, CardContent, Avatar, Typography, CircularProgress, Alert } from '@mui/material';
 
-const TopArtists: React.FC = () => {
+const TopArtists = () => {
   const { artists, loading: artistsLoading, error: artistsError } = useTopArtists();
 
   if (artistsLoading)
-    return <p className="text-center mt-10 text-gray-500">Loading...</p>;
+    return (
+      <Box textAlign="center" mt={10}>
+        <CircularProgress />
+      </Box>
+    );
+
   if (artistsError)
-    return <p className="text-center mt-10 text-red-500">Error: {artistsError}</p>;
+    return (
+      <Box textAlign="center" mt={10}>
+        <Alert severity="error">Error: {artistsError}</Alert>
+      </Box>
+    );
 
   return (
-    <div>
-      <h2 className="text-2xl font-semibold mb-6 text-gray-700">Top Artists</h2>
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-            {artists.map((artist, index) => (
-              <div
-                key={index}
-                className="flex items-center bg-white shadow-md rounded-xl p-4 gap-4 hover:scale-105 transition-transform duration-200"
-              >
-                {artist.image_url && (
-                  <img
-                    src={artist.image_url}
-                    alt={artist.name}
-                    className="w-16 h-16 rounded-full object-cover"
-                  />
-                )}
-                <div>
-                  <p className="font-semibold text-gray-800">{index + 1}. {artist.name}</p>
-                </div>
-              </div>
-            ))}
-          </div>
-    </div>
+    <Box sx={{ height: '100%' }}>
+      <Typography variant="h5" fontWeight="600" mb={3} color="text.primary">
+        Top Artists
+      </Typography>
+
+      <Grid container spacing={2}>
+        {artists.map((artist, index) => (
+          <Grid size={6} item xs={12} sm={6} key={index}>
+            <Card
+              sx={{
+                display: 'flex',
+                alignItems: 'center',
+                p: 1.5,
+                gap: 2,
+                transition: 'transform 0.2s',
+                '&:hover': { transform: 'scale(1.05)' },
+              }}
+            >
+              {artist.image_url && (
+                <Avatar
+                  src={artist.image_url}
+                  alt={artist.name}
+                  sx={{ width: 64, height: 64 }}
+                />
+              )}
+              <CardContent sx={{ p: 0 }}>
+                <Typography variant="subtitle1" fontWeight="600" color="text.primary">
+                  {index + 1}. {artist.name}
+                </Typography>
+              </CardContent>
+            </Card>
+          </Grid>
+        ))}
+      </Grid>
+    </Box>
   );
 };
 

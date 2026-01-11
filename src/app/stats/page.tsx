@@ -4,47 +4,55 @@ import { useUser } from './hooks/useUser';
 import TopArtists from './components/topArtists';
 import TopTracks from './components/topTracks';
 import TopTracksByArtist from './components/topTracksByArtist';
+import { Box, Grid, Avatar, Typography, CircularProgress, Alert, Container } from '@mui/material';
 
-const Stats: React.FC = () => {
+export default function Stats() {
   const { user, loading: userLoading, error: userError } = useUser();
 
   if (userLoading)
-    return <p className="text-center mt-10 text-gray-500">Loading...</p>;
+    return (
+      <Box textAlign="center" mt={10}>
+        <CircularProgress />
+      </Box>
+    );
 
   if (userError)
-    return <p className="text-center mt-10 text-red-500"> {userError} </p>;
+    return (
+      <Box textAlign="center" mt={10}>
+        <Alert severity="error">{userError}</Alert>
+      </Box>
+    );
 
   return (
-    <div className="flex flex-col items-center mt-10 px-4">
+    <Container maxWidth="lg" sx={{ mt: 5 }}>
       {/* User Info */}
       {user && (
-        <div className="flex flex-col items-center mb-10">
-          <img
+        <Box display="flex" flexDirection="column" alignItems="center" mb={10}>
+          <Avatar
             src={user.photo}
             alt={user.name}
-            className="w-32 h-32 rounded-full shadow-lg mb-4 object-cover"
+            sx={{ width: 80, height: 80, mb: 2, boxShadow: 3 }}
           />
-          <h1 className="text-3xl font-bold text-gray-800">{user.name}</h1>
-        </div>
+          <Typography variant="h4" component="h4" fontWeight="bold" color="text.primary">
+            {user.name}
+          </Typography>
+        </Box>
       )}
 
-      {/* Tracks */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-16 w-full max-w-6xl mb-12">
-        <div>
+      {/* Tracks & Artists */}
+      <Grid container spacing={8} mb={12}>
+        <Grid size={6} item xs={12} md={6}>
           <TopTracks />
-        </div>
-        {/* Top Artists */}
-        <div>
+        </Grid>
+        <Grid size={6} item xs={12} md={6}>
           <TopArtists />
-        </div>
-      </div>
+        </Grid>
+      </Grid>
 
       {/* Top Tracks By Artist */}
-      <div className="w-full max-w-6xl space-y-8 mb-16">
+      <Box mb={16}>
         <TopTracksByArtist />
-      </div>
-    </div >
+      </Box>
+    </Container>
   );
 };
-
-export default Stats;

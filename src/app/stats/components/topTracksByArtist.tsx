@@ -1,42 +1,67 @@
 import { useTopTracksByArtist } from '../hooks/useTopTracksByArtist';
+import { Box, Grid, Card, CardContent, Avatar, Typography, CircularProgress, Alert } from '@mui/material';
 
-const TopTracksByArtist: React.FC = () => {
-    const { tracksByArtist, loading: tracksByArtistLoading, error: tracksByArtistError } = useTopTracksByArtist();
+const TopTracksByArtist = () => {
+  const { tracksByArtist, loading: tracksByArtistLoading, error: tracksByArtistError } = useTopTracksByArtist();
 
-    if (tracksByArtistLoading) {
-        return <p className="text-center mt-10 text-gray-500">Loading...</p>;
-    }
-
-    if (tracksByArtistError) {
-        return <p className="text-center mt-10 text-red-500">Error: {tracksByArtistError}</p>;
-    }
-
+  if (tracksByArtistLoading) {
     return (
-        <>
-            {Object.entries(tracksByArtist).map(([artistId, artistInfo]) => (
-                <div key={artistId} className="mb-8">
-                    <h2 className="text-xl font-semibold mb-4 text-gray-700">{artistInfo.name}</h2>
-                    <ul className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
-                        {(artistInfo.tracks || []).map((track, idx) => (
-                            <li
-                                key={track.id || track.name}
-                                className="flex items-center gap-3 bg-white shadow-sm rounded-lg p-3 hover:shadow-lg transition-shadow duration-200"
-                            >
-                                {track.album_image_url && (
-                                    <img
-                                        src={track.album_image_url}
-                                        alt={track.name}
-                                        className="w-12 h-12 rounded-lg object-cover"
-                                    />
-                                )}
-                                <span className="text-gray-800">{idx + 1}. {track.name}</span>
-                            </li>
-                        ))}
-                    </ul>
-                </div>
-            ))}
-        </>
+      <Box textAlign="center" mt={10}>
+        <CircularProgress />
+      </Box>
     );
+  }
+
+  if (tracksByArtistError) {
+    return (
+      <Box textAlign="center" mt={10}>
+        <Alert severity="error">Error: {tracksByArtistError}</Alert>
+      </Box>
+    );
+  }
+
+  return (
+    <Box sx={{ height: '100%' }}>
+      {Object.entries(tracksByArtist).map(([artistId, artistInfo]) => (
+        <Box key={artistId} mb={8}>
+          <Typography variant="h6" fontWeight="600" mb={2} color="text.primary">
+            {artistInfo.name}
+          </Typography>
+
+          <Grid container spacing={2}>
+            {(artistInfo.tracks || []).map((track, idx) => (
+              <Grid size={3} item xs={12} sm={6} md={4} key={track.id || track.name}>
+                <Card
+                  sx={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: 1.5,
+                    p: 2,
+                    transition: 'box-shadow 0.2s',
+                    '&:hover': { boxShadow: 6 },
+                  }}
+                >
+                  {track.album_image_url && (
+                    <Avatar
+                      src={track.album_image_url}
+                      alt={track.name}
+                      variant="rounded"
+                      sx={{ width: 48, height: 48 }}
+                    />
+                  )}
+                  <CardContent sx={{ p: 0 }}>
+                    <Typography variant="body1" color="text.primary">
+                      {idx + 1}. {track.name}
+                    </Typography>
+                  </CardContent>
+                </Card>
+              </Grid>
+            ))}
+          </Grid>
+        </Box>
+      ))}
+    </Box>
+  );
 };
 
 export default TopTracksByArtist;

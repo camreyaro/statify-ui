@@ -1,37 +1,64 @@
 import { useTopTracks } from '../hooks/useTopTracks';
+import { Box, Grid, Card, CardContent, Avatar, Typography, CircularProgress, Alert } from '@mui/material';
 
-const TopTracks: React.FC = () => {
+const TopTracks = () => {
   const { tracks, loading: tracksLoading, error: tracksError } = useTopTracks();
 
   if (tracksLoading)
-    return <p className="text-center mt-10 text-gray-500">Loading...</p>;
+    return (
+      <Box textAlign="center" mt={10}>
+        <CircularProgress />
+      </Box>
+    );
+
   if (tracksError)
-    return <p className="text-center mt-10 text-red-500">Error: {tracksError}</p>;
+    return (
+      <Box textAlign="center" mt={10}>
+        <Alert severity="error">Error: {tracksError}</Alert>
+      </Box>
+    );
 
   return (
-    <div>
-      <h2 className="text-2xl font-semibold mb-6 text-gray-700">Top Tracks</h2>
-      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+    <Box sx={{ height: '100%' }}>
+      <Typography variant="h5" fontWeight="600" mb={3} color="text.primary">
+        Top Tracks
+      </Typography>
+
+      <Grid container spacing={2}>
         {tracks.map((track, index) => (
-          <div
-            key={track.id || index}
-            className="flex items-center bg-white shadow-md rounded-xl p-4 gap-4 hover:scale-105 transition-transform duration-200"
-          >
-            {track.album_image_url && (
-              <img
-                src={track.album_image_url}
-                alt={track.name}
-                className="w-16 h-16 rounded-lg object-cover"
-              />
-            )}
-            <div className="flex flex-col">
-              <p className="font-semibold text-gray-800">{index + 1}. {track.name}</p>
-              <p className="text-gray-500 text-sm">{track.artist}</p>
-            </div>
-          </div>
+          <Grid size={6} item xs={12} sm={6} key={track.id || index}>
+            <Card
+              sx={{
+                display: 'flex',
+                alignItems: 'center',
+                p: 1.5,
+                gap: 2,
+                mb: 0,
+                transition: 'transform 0.2s',
+                '&:hover': { transform: 'scale(1.05)' },
+              }}
+            >
+              {track.album_image_url && (
+                <Avatar
+                  src={track.album_image_url}
+                  alt={track.name}
+                  variant="rounded"
+                  sx={{ width: 64, height: 64 }}
+                />
+              )}
+              <CardContent sx={{ p: 0 }}>
+                <Typography variant="subtitle1" fontWeight="600" color="text.primary">
+                  {index + 1}. {track.name}
+                </Typography>
+                <Typography variant="body2" color="text.secondary">
+                  {track.artist}
+                </Typography>
+              </CardContent>
+            </Card>
+          </Grid>
         ))}
-      </div>
-    </div>
+      </Grid>
+    </Box>
   );
 };
 
