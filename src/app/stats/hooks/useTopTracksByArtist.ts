@@ -9,7 +9,7 @@ export function useTopTracksByArtist() {
     useEffect(() => {
         const fetchTracksByArtist = async () => {
             try {
-                const res = await fetch("http://localhost:8000/top-tracks-by-artist", {
+                const res = await fetch("http://127.0.0.1:8000/top-tracks-by-artist", {
                     credentials: "include",
                 });
                 if (!res.ok) throw new Error(`Error: ${res.status}`);

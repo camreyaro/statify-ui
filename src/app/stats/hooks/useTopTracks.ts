@@ -10,7 +10,7 @@ export function useTopTracks() {
   useEffect(() => {
     const fetchTracks = async () => {
       try {
-        const res = await fetch("http://localhost:8000/top-tracks", {
+        const res = await fetch("http://127.0.0.1:8000/top-tracks", {
           credentials: "include",
         });
         if (!res.ok) throw new Error(`Error: ${res.status}`);

@@ -14,7 +14,7 @@ export function useUser() {
   useEffect(() => {
     const fetchUser = async () => {
       try {
-        const res = await fetch("http://localhost:8000/user-data", {
+        const res = await fetch("http://127.0.0.1:8000/user-data", {
           credentials: "include",
         });
         if (!res.ok) throw new Error(`Error: ${res.status}`);
