@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import { Box, Drawer, List, ListItem, ListItemButton, ListItemText, Toolbar, Typography, CssBaseline } from '@mui/material';
 import Stats from '../stats/page';
+import Mood from '../mood/page';
 
 export default function Dashboard() {
   const [active, setActive] = useState<'stats' | 'mood'>('stats');
@@ -43,7 +44,7 @@ export default function Dashboard() {
       >
         <Toolbar />
         {active === 'stats' && <Stats />}
-        {/* {active === 'mood' && <Mood />} */}
+        {active === 'mood' && <Mood />}
       </Box>
     </Box>
   );
